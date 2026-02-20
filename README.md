@@ -1,45 +1,75 @@
-# FTTH Automation for EMR Project
+<h1 align="center">⚡ FTTH Automation for EMR Project</h1>
 
-A desktop application built with Python + Tkinter for automating FTTH (Fiber to the Home) network planning tasks in EMR projects.
+<p align="center">
+  Aplikasi desktop all-in-one untuk otomasi perencanaan jaringan FTTH pada proyek EMR.<br/>
+  Dibangun dengan <strong>Python + Tkinter</strong> — ringan, portabel, tanpa instalasi rumit.
+</p>
 
-## Features
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.9+-blue?logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows"/>
+  <img src="https://img.shields.io/badge/Status-Active-brightgreen"/>
+  <img src="https://img.shields.io/github/license/galprim1412/ftth-automation"/>
+</p>
 
-| Tab | Description |
-|-----|-------------|
-| **Cable Name Generator** | Generate cable naming based on route/segment parameters |
-| **Cluster Description** | Generate cluster description strings |
-| **Feeder Description** | Generate feeder description strings |
-| **HP Grouping by FAT for KMZ** | Group homepass points into FAT polygons from KML files |
-| **CSV → KML Converter** | Convert CSV coordinate data into KML placemarks |
-| **Homepass Counter** | Count homepass from KML files |
-| **KML Extractor for HPDB** | Extract KML placemark data to Excel |
-| **BoQ Generator for FDDP** | Process BoQ Excel files and generate material/service upload templates |
+---
 
-## Requirements
+## 🗂️ Fitur
 
-```
-Python 3.9+
-pandas
-openpyxl
-```
+| Tab | Fungsi |
+|-----|--------|
+| 📎 **Cable Name Generator** | Generate penamaan kabel berdasarkan parameter rute & segmen |
+| 🏘️ **Cluster Description** | Generate string deskripsi cluster secara otomatis |
+| 🔌 **Feeder Description** | Generate string deskripsi feeder secara otomatis |
+| 📍 **HP Grouping by FAT for KMZ** | Kelompokkan titik homepass ke dalam polygon FAT dari file KML |
+| 🗺️ **CSV → KML Converter** | Konversi data koordinat CSV menjadi placemark KML |
+| 🔢 **Homepass Counter** | Hitung jumlah homepass dari file KML |
+| 📤 **KML Extractor for HPDB** | Ekstrak data placemark KML ke Excel untuk HPDB |
+| 📊 **BoQ Generator for FDDP** | Proses file BoQ Excel & hasilkan template upload material/service FDDP |
 
-Install dependencies:
+---
+
+## 🔧 Persyaratan
+
+- Python **3.9** atau lebih baru
+- Library:
+  ```
+  pandas
+  openpyxl
+  ```
+
+Install dependensi:
 ```bash
 pip install pandas openpyxl
 ```
 
-## Usage
+---
+
+## 🚀 Cara Menjalankan
 
 ```bash
 python ftthautomation.py
 ```
 
-## Project Structure
+> Tidak perlu konfigurasi tambahan. Semua logika sudah tertanam dalam satu file.
+
+---
+
+## 📁 Struktur Project
 
 ```
-ftthautomation.py   # Main application (single-file, self-contained)
+ftth-automation/
+├── ftthautomation.py   # Aplikasi utama (single-file, self-contained)
+├── .gitignore
+└── README.md
 ```
 
-## License
+---
 
-Internal use — EMR Project.
+## 👤 Author
+
+**Galih Prima** — [@galprim1412](https://github.com/galprim1412)
+
+---
+
+<p align="center">Dibuat untuk kebutuhan operasional EMR Project 🇮🇩</p>
