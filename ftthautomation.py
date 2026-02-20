@@ -39,6 +39,18 @@ except Exception:
     pass
 
 
+# ── Platform-aware font selection ────────────────────────────────────────────
+if sys.platform == "darwin":          # macOS
+    _FONT_SANS = "Helvetica Neue"
+    _FONT_MONO = "Menlo"
+elif sys.platform.startswith("linux"):
+    _FONT_SANS = "DejaVu Sans"
+    _FONT_MONO = "DejaVu Sans Mono"
+else:                                  # Windows (default — tidak berubah)
+    _FONT_SANS = "Segoe UI"
+    _FONT_MONO = "Consolas"
+
+
 class ModernButton(tk.Canvas):
     """Custom button widget with modern styling, supports state='disabled'/'normal'"""
     _DISABLED_FG  = '#6b7280'
@@ -55,7 +67,7 @@ class ModernButton(tk.Canvas):
         super().configure(bg=bg_color, height=35)
         self.text_id = self.create_text(
             0, 0, text=text, fill='white',
-            font=('Segoe UI', 9, 'bold'), anchor='center'
+            font=(_FONT_SANS, 9, 'bold'), anchor='center'
         )
 
         self.bind('<Button-1>', self._on_click)
@@ -156,12 +168,12 @@ class FTTHAutomationApp:
         
         title_label = tk.Label(header, text="FTTH Automation for EMR Project",
                       bg=self.colors['gradient_start'], fg=self.colors['text_primary'],
-                      font=('Segoe UI', 18, 'bold'))
+                      font=(_FONT_SANS, 18, 'bold'))
         title_label.pack(pady=(14, 2))
 
         credit_label = tk.Label(header, text="Created by Galih Prima",
                             bg=self.colors['gradient_start'], fg=self.colors['text_secondary'],
-                            font=('Segoe UI', 9))
+                            font=(_FONT_SANS, 9))
         credit_label.pack()
         
         # Tab Navigation
@@ -189,7 +201,7 @@ class FTTHAutomationApp:
 
         for tab_id, tab_name in tabs:
             btn = tk.Label(tab_row, text=tab_name,
-                           font=('Segoe UI', 8),
+                           font=(_FONT_SANS, 8),
                            padx=14, pady=5,
                            justify='center',
                            cursor='hand2')
@@ -243,7 +255,7 @@ class FTTHAutomationApp:
         
         # Header
         header = tk.Label(section, text=title, bg=self.colors['bg_section'],
-                         fg=self.colors['text_primary'], font=('Segoe UI', 9),
+                         fg=self.colors['text_primary'], font=(_FONT_SANS, 9),
                          anchor='w')
         header.pack(fill=tk.X, padx=16, pady=(12, 8))
         
@@ -265,7 +277,7 @@ class FTTHAutomationApp:
         
         # Header
         header = tk.Label(section, text="Result Output", bg=self.colors['bg_section'],
-                         fg=self.colors['text_primary'], font=('Segoe UI', 9),
+                         fg=self.colors['text_primary'], font=(_FONT_SANS, 9),
                          anchor='w')
         header.pack(fill=tk.X, padx=16, pady=(12, 8))
         
@@ -275,7 +287,7 @@ class FTTHAutomationApp:
         # Output text
         output_text = tk.Text(section, bg=self.colors['output_bg'],
                              fg=self.colors['output_text'],
-                             font=('Consolas', 9),
+                             font=(_FONT_MONO, 9),
                              highlightbackground=self.colors['output_border'],
                              highlightthickness=1,
                              relief=tk.FLAT,
@@ -289,13 +301,13 @@ class FTTHAutomationApp:
     def create_input_field(self, parent, label_text, row):
         """Create styled input field"""
         label = tk.Label(parent, text=label_text, bg=self.colors['bg_section'],
-                        fg=self.colors['text_primary'], font=('Segoe UI', 9),
+                        fg=self.colors['text_primary'], font=(_FONT_SANS, 9),
                         anchor='w')
         label.grid(row=row, column=0, sticky='w', pady=(0, 12))
         
         entry = tk.Entry(parent, bg=self.colors['bg_input'],
                         fg=self.colors['text_primary'],
-                        font=('Segoe UI', 9),
+                        font=(_FONT_SANS, 9),
                         relief=tk.FLAT,
                         highlightbackground=self.colors['border'],
                         highlightthickness=1,
@@ -339,7 +351,7 @@ class FTTHAutomationApp:
         category_label = tk.Label(input_container, text="Cable Category:",
                                  bg=self.colors['bg_section'],
                                  fg=self.colors['text_primary'],
-                                 font=('Segoe UI', 9), anchor='w')
+                                 font=(_FONT_SANS, 9), anchor='w')
         category_label.grid(row=0, column=0, sticky='w', pady=(0, 8))
         
         category_frame = tk.Frame(input_container, bg=self.colors['bg_section'])
@@ -350,7 +362,7 @@ class FTTHAutomationApp:
         
         for value, text in [('cluster', 'Cluster Cable'), ('feeder', 'Feeder Cable')]:
             btn = tk.Label(category_frame, text=text,
-                          font=('Segoe UI', 9),
+                          font=(_FONT_SANS, 9),
                           cursor='hand2',
                           padx=16, pady=8)
             btn.pack(side=tk.LEFT, padx=(0, 8), fill=tk.X, expand=True)
@@ -414,14 +426,14 @@ class FTTHAutomationApp:
             label = tk.Label(self.cable_inputs_frame, text="Feeder Type:",
                             bg=self.colors['bg_section'],
                             fg=self.colors['text_primary'],
-                            font=('Segoe UI', 9), anchor='w')
+                            font=(_FONT_SANS, 9), anchor='w')
             label.grid(row=row, column=0, sticky='w', pady=(0, 12))
             
             feeder_types = ['SUBFEEDER', 'HUBFEEDER', 'MAINFEEDER']
             self.feeder_type_var = tk.StringVar(value=feeder_types[0])
             
             combo_feeder = ttk.Combobox(self.cable_inputs_frame, textvariable=self.feeder_type_var,
-                                values=feeder_types, state='readonly', font=('Segoe UI', 9))
+                                values=feeder_types, state='readonly', font=(_FONT_SANS, 9))
             combo_feeder.grid(row=row+1, column=0, sticky='ew', pady=(0, 12), ipady=4)
             row += 2
         
@@ -429,7 +441,7 @@ class FTTHAutomationApp:
         label = tk.Label(self.cable_inputs_frame, text="Cable Type:",
                         bg=self.colors['bg_section'],
                         fg=self.colors['text_primary'],
-                        font=('Segoe UI', 9), anchor='w')
+                        font=(_FONT_SANS, 9), anchor='w')
         label.grid(row=row, column=0, sticky='w', pady=(0, 12))
         
         cable_types = ['24C/2T', '36C/3T', '48C/4T'] if category == 'cluster' else \
@@ -438,7 +450,7 @@ class FTTHAutomationApp:
         self.cable_type_var = tk.StringVar(value=cable_types[0])
         
         combo = ttk.Combobox(self.cable_inputs_frame, textvariable=self.cable_type_var,
-                            values=cable_types, state='readonly', font=('Segoe UI', 9))
+                            values=cable_types, state='readonly', font=(_FONT_SANS, 9))
         combo.grid(row=row+1, column=0, sticky='ew', pady=(0, 12), ipady=4)
         row += 2
         
@@ -699,7 +711,7 @@ By OTDR : {otdr} m"""
 
     def _hp_file_picker(self, parent, label, var, row):
         tk.Label(parent, text=label, bg=self.colors['bg_section'],
-                fg=self.colors['text_primary'], font=('Segoe UI', 9),
+                fg=self.colors['text_primary'], font=(_FONT_SANS, 9),
                 anchor='w').grid(row=row, column=0, sticky='w', pady=(0, 8))
         row += 1
 
@@ -708,7 +720,7 @@ By OTDR : {otdr} m"""
         frame.grid_columnconfigure(0, weight=1)
 
         entry = tk.Entry(frame, textvariable=var, bg=self.colors['bg_input'],
-                        fg=self.colors['text_primary'], font=('Segoe UI', 9),
+                        fg=self.colors['text_primary'], font=(_FONT_SANS, 9),
                         relief=tk.FLAT, highlightbackground=self.colors['border'],
                         highlightthickness=1, insertbackground=self.colors['text_primary'])
         entry.grid(row=0, column=0, sticky='ew', ipady=6)
@@ -729,7 +741,7 @@ By OTDR : {otdr} m"""
 
     def _hp_save_picker(self, parent, label, var, row):
         tk.Label(parent, text=label, bg=self.colors['bg_section'],
-                fg=self.colors['text_primary'], font=('Segoe UI', 9),
+                fg=self.colors['text_primary'], font=(_FONT_SANS, 9),
                 anchor='w').grid(row=row, column=0, sticky='w', pady=(0, 8))
         row += 1
 
@@ -738,7 +750,7 @@ By OTDR : {otdr} m"""
         frame.grid_columnconfigure(0, weight=1)
 
         entry = tk.Entry(frame, textvariable=var, bg=self.colors['bg_input'],
-                        fg=self.colors['text_primary'], font=('Segoe UI', 9),
+                        fg=self.colors['text_primary'], font=(_FONT_SANS, 9),
                         relief=tk.FLAT, highlightbackground=self.colors['border'],
                         highlightthickness=1, insertbackground=self.colors['text_primary'])
         entry.grid(row=0, column=0, sticky='ew', ipady=6)
@@ -1010,7 +1022,7 @@ By OTDR : {otdr} m"""
         # File picker
         tk.Label(input_container, text="CSV File:",
                  bg=self.colors['bg_section'], fg=self.colors['text_primary'],
-                 font=('Segoe UI', 9), anchor='w').grid(row=row, column=0, sticky='w', pady=(0, 8))
+                 font=(_FONT_SANS, 9), anchor='w').grid(row=row, column=0, sticky='w', pady=(0, 8))
         row += 1
 
         file_frame = tk.Frame(input_container, bg=self.colors['bg_section'])
@@ -1019,7 +1031,7 @@ By OTDR : {otdr} m"""
 
         tk.Entry(file_frame, textvariable=self.csv_path,
                  bg=self.colors['bg_input'], fg=self.colors['text_primary'],
-                 font=('Segoe UI', 9), relief=tk.FLAT,
+                 font=(_FONT_SANS, 9), relief=tk.FLAT,
                  highlightbackground=self.colors['border'], highlightthickness=1,
                  insertbackground=self.colors['text_primary']).grid(row=0, column=0, sticky='ew', ipady=6)
 
@@ -1164,13 +1176,13 @@ By OTDR : {otdr} m"""
 
         tk.Label(input_container, text="Paste KML Content:",
                  bg=self.colors['bg_section'], fg=self.colors['text_primary'],
-                 font=('Segoe UI', 9), anchor='w').grid(row=0, column=0, sticky='w', pady=(0, 8))
+                 font=(_FONT_SANS, 9), anchor='w').grid(row=0, column=0, sticky='w', pady=(0, 8))
 
         self.counter_text = tk.Text(
             input_container,
             bg=self.colors['bg_input'],
             fg=self.colors['text_primary'],
-            font=('Consolas', 9),
+            font=(_FONT_MONO, 9),
             relief=tk.FLAT,
             highlightbackground=self.colors['border'],
             highlightthickness=1,
@@ -1243,7 +1255,7 @@ By OTDR : {otdr} m"""
         # File picker
         tk.Label(input_container, text="File KML:",
                  bg=self.colors['bg_section'], fg=self.colors['text_primary'],
-                 font=('Segoe UI', 9), anchor='w').grid(row=0, column=0, sticky='w', pady=(0, 8))
+                 font=(_FONT_SANS, 9), anchor='w').grid(row=0, column=0, sticky='w', pady=(0, 8))
 
         fp_frame = tk.Frame(input_container, bg=self.colors['bg_section'])
         fp_frame.grid(row=1, column=0, sticky='ew', pady=(0, 12))
@@ -1251,7 +1263,7 @@ By OTDR : {otdr} m"""
 
         tk.Entry(fp_frame, textvariable=self.kmlext_path,
                  bg=self.colors['bg_input'], fg=self.colors['text_primary'],
-                 font=('Segoe UI', 9), relief=tk.FLAT,
+                 font=(_FONT_SANS, 9), relief=tk.FLAT,
                  highlightbackground=self.colors['border'], highlightthickness=1,
                  insertbackground=self.colors['text_primary']).grid(row=0, column=0, sticky='ew', ipady=6)
 
@@ -1262,7 +1274,7 @@ By OTDR : {otdr} m"""
         # Status label
         tk.Label(input_container, textvariable=self.kmlext_status,
                  bg=self.colors['bg_section'], fg=self.colors['text_secondary'],
-                 font=('Segoe UI', 8), anchor='w', wraplength=280, justify='left'
+                 font=(_FONT_SANS, 8), anchor='w', wraplength=280, justify='left'
                  ).grid(row=2, column=0, sticky='w', pady=(8, 0))
 
         # Buttons
@@ -1288,7 +1300,7 @@ By OTDR : {otdr} m"""
 
         hdr = tk.Label(preview_section, text="Preview Placemarks",
                        bg=self.colors['bg_section'], fg=self.colors['text_primary'],
-                       font=('Segoe UI', 9), anchor='w')
+                       font=(_FONT_SANS, 9), anchor='w')
         hdr.pack(fill=tk.X, padx=16, pady=(12, 8))
 
         tk.Frame(preview_section, bg=self.colors['border'], height=1).pack(fill=tk.X, padx=16, pady=(0, 8))
@@ -1304,11 +1316,11 @@ By OTDR : {otdr} m"""
                         foreground=self.colors['output_text'],
                         fieldbackground=self.colors['output_bg'],
                         rowheight=22,
-                        font=('Consolas', 8))
+                        font=(_FONT_MONO, 8))
         style.configure('KMLExt.Treeview.Heading',
                         background=self.colors['bg_input'],
                         foreground=self.colors['text_primary'],
-                        font=('Segoe UI', 8, 'bold'),
+                        font=(_FONT_SANS, 8, 'bold'),
                         relief='flat')
         style.map('KMLExt.Treeview', background=[('selected', self.colors['button_blue'])])
 
@@ -1542,7 +1554,7 @@ By OTDR : {otdr} m"""
                 text="⚠  BoQ Generator tidak tersedia.\n"
                      "Pastikan dependensi (pandas, openpyxl) sudah terinstall.",
                 bg=self.colors['bg_main'], fg='#f87171',
-                font=('Segoe UI', 10), justify='center')
+                font=(_FONT_SANS, 10), justify='center')
             err_lbl.pack(expand=True)
             return panel
 
@@ -1571,7 +1583,7 @@ By OTDR : {otdr} m"""
 
         # Cluster toggle — di atas file picker
         tk.Label(inp, text="Tipe BoQ:", bg=self.colors['bg_section'],
-                 fg=self.colors['text_primary'], font=('Segoe UI', 9, 'bold'),
+                 fg=self.colors['text_primary'], font=(_FONT_SANS, 9, 'bold'),
                  anchor='w').grid(row=row_i, column=0, sticky='w', pady=(0, 2))
         row_i += 1
 
@@ -1583,14 +1595,14 @@ By OTDR : {otdr} m"""
                                 bg=self.colors['bg_section'], fg=self.colors['text_primary'],
                                 selectcolor=self.colors['bg_input'], activebackground=self.colors['bg_section'],
                                 activeforeground=self.colors['text_primary'],
-                                font=('Segoe UI', 9), cursor='hand2',
+                                font=(_FONT_SANS, 9), cursor='hand2',
                                 command=self._boq_update_state)
             rb.pack(side=tk.LEFT, padx=(0, 12))
         row_i += 1
 
         # File picker
         tk.Label(inp, text="File BoQ Excel:", bg=self.colors['bg_section'],
-                 fg=self.colors['text_primary'], font=('Segoe UI', 9),
+                 fg=self.colors['text_primary'], font=(_FONT_SANS, 9),
                  anchor='w').grid(row=row_i, column=0, sticky='w', pady=(0, 4))
         row_i += 1
 
@@ -1600,7 +1612,7 @@ By OTDR : {otdr} m"""
 
         self.boq_file_entry = tk.Entry(fp, textvariable=self.boq_path_var,
                  bg=self.colors['bg_input'], fg=self.colors['text_secondary'],
-                 font=('Segoe UI', 8), relief=tk.FLAT,
+                 font=(_FONT_SANS, 8), relief=tk.FLAT,
                  highlightbackground=self.colors['border'], highlightthickness=1,
                  insertbackground=self.colors['text_primary'],
                  state='disabled')
@@ -1614,13 +1626,13 @@ By OTDR : {otdr} m"""
 
         # Homepass entry (cluster only)
         tk.Label(inp, text="Homepass (RT/RW Permit qty):", bg=self.colors['bg_section'],
-                 fg=self.colors['text_secondary'], font=('Segoe UI', 8),
+                 fg=self.colors['text_secondary'], font=(_FONT_SANS, 8),
                  anchor='w').grid(row=row_i, column=0, sticky='w', pady=(0, 2))
         row_i += 1
 
         self.boq_hp_entry = tk.Entry(inp, textvariable=self.boq_homepass_var,
                                      bg=self.colors['bg_input'], fg=self.colors['text_primary'],
-                                     font=('Segoe UI', 9), relief=tk.FLAT,
+                                     font=(_FONT_SANS, 9), relief=tk.FLAT,
                                      highlightbackground=self.colors['border'], highlightthickness=1,
                                      insertbackground=self.colors['text_primary'],
                                      state='disabled')
@@ -1631,14 +1643,14 @@ By OTDR : {otdr} m"""
         # Status label
         self.boq_hint_lbl = tk.Label(inp, textvariable=self.boq_status_var,
                                      bg=self.colors['bg_section'], fg=self.colors['text_secondary'],
-                                     font=('Segoe UI', 8), anchor='w',
+                                     font=(_FONT_SANS, 8), anchor='w',
                                      wraplength=260, justify='left')
         self.boq_hint_lbl.grid(row=row_i, column=0, sticky='w')
         row_i += 1
 
         # Output folder
         tk.Label(inp, text="Output Folder:", bg=self.colors['bg_section'],
-                 fg=self.colors['text_primary'], font=('Segoe UI', 9),
+                 fg=self.colors['text_primary'], font=(_FONT_SANS, 9),
                  anchor='w').grid(row=row_i, column=0, sticky='w', pady=(12, 2))
         row_i += 1
 
@@ -1647,7 +1659,7 @@ By OTDR : {otdr} m"""
         of.grid_columnconfigure(0, weight=1)
         tk.Entry(of, textvariable=self.boq_out_dir_var,
                  bg=self.colors['bg_input'], fg=self.colors['text_primary'],
-                 font=('Segoe UI', 8), relief=tk.FLAT,
+                 font=(_FONT_SANS, 8), relief=tk.FLAT,
                  highlightbackground=self.colors['border'], highlightthickness=1,
                  insertbackground=self.colors['text_primary']
                  ).grid(row=0, column=0, sticky='ew', ipady=5)
@@ -1679,7 +1691,7 @@ By OTDR : {otdr} m"""
         mat_sec.pack(fill=tk.BOTH, expand=True, pady=(0, 6))
 
         self.boq_lbl_mat = tk.Label(mat_sec, text="Preview Material", bg=self.colors['bg_section'],
-                 fg=self.colors['text_primary'], font=('Segoe UI', 9), anchor='w')
+                 fg=self.colors['text_primary'], font=(_FONT_SANS, 9), anchor='w')
         self.boq_lbl_mat.pack(fill=tk.X, padx=12, pady=(8, 4))
         tk.Frame(mat_sec, bg=self.colors['border'], height=1).pack(fill=tk.X, padx=12)
 
@@ -1691,7 +1703,7 @@ By OTDR : {otdr} m"""
         svc_sec.pack(fill=tk.BOTH, expand=True, pady=(0, 6))
 
         self.boq_lbl_svc = tk.Label(svc_sec, text="Preview Service", bg=self.colors['bg_section'],
-                 fg=self.colors['text_primary'], font=('Segoe UI', 9), anchor='w')
+                 fg=self.colors['text_primary'], font=(_FONT_SANS, 9), anchor='w')
         self.boq_lbl_svc.pack(fill=tk.X, padx=12, pady=(8, 4))
         tk.Frame(svc_sec, bg=self.colors['border'], height=1).pack(fill=tk.X, padx=12)
 
@@ -1704,13 +1716,13 @@ By OTDR : {otdr} m"""
         warn_sec.configure(height=100)
 
         tk.Label(warn_sec, text="Warnings / Mismatch", bg=self.colors['bg_section'],
-                 fg=self.colors['text_primary'], font=('Segoe UI', 9), anchor='w'
+                 fg=self.colors['text_primary'], font=(_FONT_SANS, 9), anchor='w'
                  ).pack(fill=tk.X, padx=12, pady=(8, 4))
         tk.Frame(warn_sec, bg=self.colors['border'], height=1).pack(fill=tk.X, padx=12)
 
         self.boq_txt_warn = tk.Text(warn_sec, bg=self.colors['output_bg'],
                                     fg='#f87171',
-                                    font=('Consolas', 8),
+                                    font=(_FONT_MONO, 8),
                                     highlightbackground=self.colors['output_border'],
                                     highlightthickness=1, relief=tk.FLAT,
                                     padx=10, pady=8, wrap=tk.WORD,
@@ -1729,11 +1741,11 @@ By OTDR : {otdr} m"""
                         background=self.colors['output_bg'],
                         foreground=self.colors['output_text'],
                         fieldbackground=self.colors['output_bg'],
-                        rowheight=20, font=('Consolas', 8))
+                        rowheight=20, font=(_FONT_MONO, 8))
         style.configure('BOQ.Treeview.Heading',
                         background=self.colors['bg_input'],
                         foreground=self.colors['text_primary'],
-                        font=('Segoe UI', 8, 'bold'))
+                        font=(_FONT_SANS, 8, 'bold'))
         style.map('BOQ.Treeview', background=[('selected', self.colors['button_blue'])])
 
         frm = tk.Frame(parent, bg=self.colors['bg_section'])

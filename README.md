@@ -7,9 +7,8 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.9+-blue?logo=python&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows"/>
+  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-informational"/>
   <img src="https://img.shields.io/badge/Status-Active-brightgreen"/>
-  <img src="https://img.shields.io/github/license/galprim1412/ftth-automation"/>
 </p>
 
 ---
@@ -29,19 +28,51 @@
 
 ---
 
-## 🔧 Persyaratan
+## 🔧 Instalasi
 
+### Prasyarat
 - Python **3.9** atau lebih baru
-- Library:
-  ```
-  pandas
-  openpyxl
-  ```
+- Semua dependensi ada di `requirements.txt`
 
-Install dependensi:
 ```bash
-pip install pandas openpyxl
+pip install -r requirements.txt
 ```
+
+### Per Platform
+
+<details>
+<summary>🪟 Windows</summary>
+
+```bash
+# Tkinter sudah termasuk dalam instalasi Python standar
+pip install -r requirements.txt
+python ftthautomation.py
+```
+</details>
+
+<details>
+<summary>🍎 macOS</summary>
+
+```bash
+# Jika tkinter belum ada, install via Homebrew
+brew install python-tk
+
+pip install -r requirements.txt
+python3 ftthautomation.py
+```
+</details>
+
+<details>
+<summary>🐧 Linux (Ubuntu/Debian)</summary>
+
+```bash
+# Install tkinter jika belum ada
+sudo apt install python3-tk
+
+pip install -r requirements.txt
+python3 ftthautomation.py
+```
+</details>
 
 ---
 
@@ -51,7 +82,7 @@ pip install pandas openpyxl
 python ftthautomation.py
 ```
 
-> Tidak perlu konfigurasi tambahan. Semua logika sudah tertanam dalam satu file.
+> Tidak perlu konfigurasi tambahan. Semua logika tertanam dalam satu file. Font UI otomatis menyesuaikan platform (Segoe UI di Windows, Helvetica Neue di macOS, DejaVu Sans di Linux).
 
 ---
 
@@ -59,7 +90,8 @@ python ftthautomation.py
 
 ```
 ftth-automation/
-├── ftthautomation.py   # Aplikasi utama (single-file, self-contained)
+├── ftthautomation.py    # Aplikasi utama (single-file, self-contained)
+├── requirements.txt     # Dependensi Python
 ├── .gitignore
 └── README.md
 ```
